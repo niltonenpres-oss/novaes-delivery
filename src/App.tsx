@@ -133,18 +133,17 @@ export default function App() {
     }
   }, [pedidos])
 
-  const corAba = (aba: Aba) =>
-    abaAtual === aba
-      ? {
-          background: "#facc15",
-          color: "#000",
-          border: "1px solid #facc15",
-        }
-      : {
-          background: "#151515",
-          color: "#fff",
-          border: "1px solid #2c2c2c",
-        }
+  const estiloAba = (aba: Aba) => ({
+    background: abaAtual === aba ? "#facc15" : "#151515",
+    color: abaAtual === aba ? "#000" : "#fff",
+    border: abaAtual === aba ? "1px solid #facc15" : "1px solid #2c2c2c",
+    padding: "10px 12px",
+    borderRadius: "10px",
+    fontWeight: "bold" as const,
+    fontSize: "14px",
+    cursor: "pointer",
+    minWidth: "72px",
+  })
 
   return (
     <div
@@ -152,7 +151,7 @@ export default function App() {
         background: "#0b0b0b",
         color: "white",
         minHeight: "100vh",
-        padding: "20px 14px 90px 14px",
+        padding: "16px 12px 24px 12px",
         fontFamily: "Arial, sans-serif",
       }}
     >
@@ -162,19 +161,42 @@ export default function App() {
             background: "linear-gradient(135deg,#111,#1a1a1a)",
             border: "1px solid #2a2a2a",
             borderRadius: "20px",
-            padding: "22px",
+            padding: "18px",
             boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
           }}
         >
+          <div
+            style={{
+              display: "flex",
+              gap: "8px",
+              overflowX: "auto",
+              paddingBottom: "10px",
+              marginBottom: "18px",
+            }}
+          >
+            <button onClick={() => setAbaAtual("inicio")} style={estiloAba("inicio")}>
+              Início
+            </button>
+            <button onClick={() => setAbaAtual("novo")} style={estiloAba("novo")}>
+              Novo
+            </button>
+            <button onClick={() => setAbaAtual("pedidos")} style={estiloAba("pedidos")}>
+              Pedidos
+            </button>
+            <button onClick={() => setAbaAtual("painel")} style={estiloAba("painel")}>
+              Painel
+            </button>
+          </div>
+
           {abaAtual === "inicio" && (
             <div>
-              <div style={{ marginBottom: "22px" }}>
+              <div style={{ marginBottom: "20px" }}>
                 <div
                   style={{
                     color: "#facc15",
-                    fontSize: "32px",
+                    fontSize: "30px",
                     fontWeight: "bold",
-                    lineHeight: "1.2",
+                    lineHeight: "1.15",
                     marginBottom: "2px",
                   }}
                 >
@@ -184,9 +206,9 @@ export default function App() {
                 <div
                   style={{
                     color: "#facc15",
-                    fontSize: "32px",
+                    fontSize: "30px",
                     fontWeight: "bold",
-                    lineHeight: "1.2",
+                    lineHeight: "1.15",
                     marginBottom: "12px",
                   }}
                 >
@@ -220,23 +242,23 @@ export default function App() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-                  gap: "14px",
-                  marginBottom: "22px",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                  gap: "12px",
+                  marginBottom: "18px",
                 }}
               >
                 <div
                   style={{
                     background: "#151515",
-                    padding: "16px",
-                    borderRadius: "16px",
+                    padding: "14px",
+                    borderRadius: "14px",
                     border: "1px solid #2c2c2c",
                   }}
                 >
-                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "16px" }}>
+                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "15px" }}>
                     Preço inicial
                   </h3>
-                  <p style={{ fontSize: "22px", fontWeight: "bold", margin: 0 }}>
+                  <p style={{ fontSize: "20px", fontWeight: "bold", margin: 0 }}>
                     R$ 10,00
                   </p>
                 </div>
@@ -244,36 +266,31 @@ export default function App() {
                 <div
                   style={{
                     background: "#151515",
-                    padding: "16px",
-                    borderRadius: "16px",
+                    padding: "14px",
+                    borderRadius: "14px",
                     border: "1px solid #2c2c2c",
                   }}
                 >
-                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "16px" }}>
+                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "15px" }}>
                     Região
                   </h3>
-                  <p style={{ fontSize: "22px", fontWeight: "bold", margin: 0 }}>
+                  <p style={{ fontSize: "20px", fontWeight: "bold", margin: 0 }}>
                     Vitória da Conquista
                   </p>
                 </div>
               </div>
 
-              <div
-                style={{
-                  display: "grid",
-                  gap: "12px",
-                }}
-              >
+              <div style={{ display: "grid", gap: "10px" }}>
                 <button
                   onClick={abrirWhatsapp}
                   style={{
                     background: "#25D366",
                     color: "#000",
                     border: "none",
-                    padding: "16px 18px",
+                    padding: "14px 16px",
                     borderRadius: "12px",
                     fontWeight: "bold",
-                    fontSize: "16px",
+                    fontSize: "15px",
                     cursor: "pointer",
                   }}
                 >
@@ -286,10 +303,10 @@ export default function App() {
                     background: "#facc15",
                     color: "#000",
                     border: "none",
-                    padding: "16px 18px",
+                    padding: "14px 16px",
                     borderRadius: "12px",
                     fontWeight: "bold",
-                    fontSize: "16px",
+                    fontSize: "15px",
                     cursor: "pointer",
                   }}
                 >
@@ -301,10 +318,10 @@ export default function App() {
                     background: "#151515",
                     color: "#fff",
                     border: "1px solid #2c2c2c",
-                    padding: "16px 18px",
+                    padding: "14px 16px",
                     borderRadius: "12px",
                     fontWeight: "bold",
-                    fontSize: "16px",
+                    fontSize: "15px",
                     cursor: "pointer",
                   }}
                 >
@@ -320,26 +337,26 @@ export default function App() {
                 style={{
                   color: "#facc15",
                   marginTop: 0,
-                  marginBottom: "18px",
-                  fontSize: "26px",
+                  marginBottom: "16px",
+                  fontSize: "24px",
                 }}
               >
                 Novo pedido
               </h2>
 
-              <div style={{ display: "grid", gap: "12px" }}>
+              <div style={{ display: "grid", gap: "10px" }}>
                 <input
                   type="text"
                   placeholder="Nome do comércio"
                   value={comercio}
                   onChange={(e) => setComercio(e.target.value)}
                   style={{
-                    padding: "14px",
+                    padding: "13px",
                     borderRadius: "12px",
                     border: "1px solid #333",
                     background: "#0f0f0f",
                     color: "white",
-                    fontSize: "16px",
+                    fontSize: "15px",
                   }}
                 />
 
@@ -349,12 +366,12 @@ export default function App() {
                   value={nomeCliente}
                   onChange={(e) => setNomeCliente(e.target.value)}
                   style={{
-                    padding: "14px",
+                    padding: "13px",
                     borderRadius: "12px",
                     border: "1px solid #333",
                     background: "#0f0f0f",
                     color: "white",
-                    fontSize: "16px",
+                    fontSize: "15px",
                   }}
                 />
 
@@ -364,12 +381,12 @@ export default function App() {
                   value={coleta}
                   onChange={(e) => setColeta(e.target.value)}
                   style={{
-                    padding: "14px",
+                    padding: "13px",
                     borderRadius: "12px",
                     border: "1px solid #333",
                     background: "#0f0f0f",
                     color: "white",
-                    fontSize: "16px",
+                    fontSize: "15px",
                   }}
                 />
 
@@ -379,12 +396,12 @@ export default function App() {
                   value={entrega}
                   onChange={(e) => setEntrega(e.target.value)}
                   style={{
-                    padding: "14px",
+                    padding: "13px",
                     borderRadius: "12px",
                     border: "1px solid #333",
                     background: "#0f0f0f",
                     color: "white",
-                    fontSize: "16px",
+                    fontSize: "15px",
                   }}
                 />
 
@@ -394,12 +411,12 @@ export default function App() {
                   value={valorEntrega}
                   onChange={(e) => setValorEntrega(e.target.value)}
                   style={{
-                    padding: "14px",
+                    padding: "13px",
                     borderRadius: "12px",
                     border: "1px solid #333",
                     background: "#0f0f0f",
                     color: "white",
-                    fontSize: "16px",
+                    fontSize: "15px",
                   }}
                 />
 
@@ -408,12 +425,12 @@ export default function App() {
                   value={observacoes}
                   onChange={(e) => setObservacoes(e.target.value)}
                   style={{
-                    padding: "14px",
+                    padding: "13px",
                     borderRadius: "12px",
                     border: "1px solid #333",
                     background: "#0f0f0f",
                     color: "white",
-                    fontSize: "16px",
+                    fontSize: "15px",
                     minHeight: "90px",
                     resize: "vertical",
                   }}
@@ -425,8 +442,8 @@ export default function App() {
                     background: "#25D366",
                     color: "#000",
                     border: "none",
-                    padding: "15px",
-                    fontSize: "16px",
+                    padding: "14px",
+                    fontSize: "15px",
                     borderRadius: "12px",
                     cursor: "pointer",
                     fontWeight: "bold",
@@ -441,8 +458,8 @@ export default function App() {
                     background: "#facc15",
                     color: "#000",
                     border: "none",
-                    padding: "15px",
-                    fontSize: "16px",
+                    padding: "14px",
+                    fontSize: "15px",
                     borderRadius: "12px",
                     cursor: "pointer",
                     fontWeight: "bold",
@@ -460,20 +477,20 @@ export default function App() {
                 style={{
                   color: "#facc15",
                   marginTop: 0,
-                  marginBottom: "18px",
-                  fontSize: "26px",
+                  marginBottom: "16px",
+                  fontSize: "24px",
                 }}
               >
                 Pedidos
               </h2>
 
-              <div style={{ display: "grid", gap: "14px" }}>
+              <div style={{ display: "grid", gap: "12px" }}>
                 {pedidos.length === 0 && (
                   <div
                     style={{
                       background: "#151515",
                       border: "1px solid #2c2c2c",
-                      padding: "18px",
+                      padding: "16px",
                       borderRadius: "14px",
                       color: "#cfcfcf",
                     }}
@@ -488,15 +505,15 @@ export default function App() {
                     style={{
                       background: "#151515",
                       border: "1px solid #2c2c2c",
-                      borderRadius: "16px",
-                      padding: "16px",
+                      borderRadius: "14px",
+                      padding: "14px",
                       textAlign: "left",
                     }}
                   >
                     <p
                       style={{
                         margin: "0 0 8px 0",
-                        fontSize: "18px",
+                        fontSize: "17px",
                         fontWeight: "bold",
                         color: "#fff",
                       }}
@@ -504,29 +521,29 @@ export default function App() {
                       {pedido.comercio}
                     </p>
 
-                    <p style={{ margin: "0 0 6px 0", color: "#d4d4d4" }}>
+                    <p style={{ margin: "0 0 5px 0", color: "#d4d4d4" }}>
                       <strong>Cliente:</strong> {pedido.nomeCliente}
                     </p>
 
-                    <p style={{ margin: "0 0 6px 0", color: "#d4d4d4" }}>
+                    <p style={{ margin: "0 0 5px 0", color: "#d4d4d4" }}>
                       <strong>Coleta:</strong> {pedido.coleta}
                     </p>
 
-                    <p style={{ margin: "0 0 6px 0", color: "#d4d4d4" }}>
+                    <p style={{ margin: "0 0 5px 0", color: "#d4d4d4" }}>
                       <strong>Entrega:</strong> {pedido.entrega}
                     </p>
 
-                    <p style={{ margin: "0 0 6px 0", color: "#d4d4d4" }}>
+                    <p style={{ margin: "0 0 5px 0", color: "#d4d4d4" }}>
                       <strong>Valor:</strong> R$ {pedido.valorEntrega}
                     </p>
 
-                    <p style={{ margin: "0 0 6px 0", color: "#d4d4d4" }}>
+                    <p style={{ margin: "0 0 5px 0", color: "#d4d4d4" }}>
                       <strong>Obs:</strong> {pedido.observacoes || "Sem observações"}
                     </p>
 
                     <p
                       style={{
-                        margin: "0 0 14px 0",
+                        margin: "0 0 12px 0",
                         color: "#facc15",
                         fontWeight: "bold",
                       }}
@@ -547,10 +564,11 @@ export default function App() {
                           background: "#3b82f6",
                           color: "white",
                           border: "none",
-                          padding: "11px 10px",
+                          padding: "10px 8px",
                           borderRadius: "10px",
                           cursor: "pointer",
                           fontWeight: "bold",
+                          fontSize: "13px",
                         }}
                       >
                         Recebido
@@ -562,10 +580,11 @@ export default function App() {
                           background: "#f59e0b",
                           color: "black",
                           border: "none",
-                          padding: "11px 10px",
+                          padding: "10px 8px",
                           borderRadius: "10px",
                           cursor: "pointer",
                           fontWeight: "bold",
+                          fontSize: "13px",
                         }}
                       >
                         Em rota
@@ -577,10 +596,11 @@ export default function App() {
                           background: "#22c55e",
                           color: "black",
                           border: "none",
-                          padding: "11px 10px",
+                          padding: "10px 8px",
                           borderRadius: "10px",
                           cursor: "pointer",
                           fontWeight: "bold",
+                          fontSize: "13px",
                         }}
                       >
                         Entregue
@@ -592,10 +612,11 @@ export default function App() {
                           background: "#151515",
                           color: "#fff",
                           border: "1px solid #555",
-                          padding: "11px 10px",
+                          padding: "10px 8px",
                           borderRadius: "10px",
                           cursor: "pointer",
                           fontWeight: "bold",
+                          fontSize: "13px",
                         }}
                       >
                         Abrir rota
@@ -608,10 +629,11 @@ export default function App() {
                           background: "#dc2626",
                           color: "#fff",
                           border: "none",
-                          padding: "11px 10px",
+                          padding: "10px 8px",
                           borderRadius: "10px",
                           cursor: "pointer",
                           fontWeight: "bold",
+                          fontSize: "13px",
                         }}
                       >
                         Excluir pedido
@@ -629,8 +651,8 @@ export default function App() {
                 style={{
                   color: "#facc15",
                   marginTop: 0,
-                  marginBottom: "18px",
-                  fontSize: "26px",
+                  marginBottom: "16px",
+                  fontSize: "24px",
                 }}
               >
                 Painel de entregas
@@ -639,22 +661,22 @@ export default function App() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-                  gap: "14px",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                  gap: "12px",
                 }}
               >
                 <div
                   style={{
                     background: "#151515",
-                    padding: "18px",
-                    borderRadius: "16px",
+                    padding: "16px",
+                    borderRadius: "14px",
                     border: "1px solid #2c2c2c",
                   }}
                 >
-                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "16px" }}>
+                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "15px" }}>
                     Total de pedidos
                   </h3>
-                  <p style={{ fontSize: "28px", fontWeight: "bold", margin: 0 }}>
+                  <p style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
                     {totais.totalPedidos}
                   </p>
                 </div>
@@ -662,15 +684,15 @@ export default function App() {
                 <div
                   style={{
                     background: "#151515",
-                    padding: "18px",
-                    borderRadius: "16px",
+                    padding: "16px",
+                    borderRadius: "14px",
                     border: "1px solid #2c2c2c",
                   }}
                 >
-                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "16px" }}>
+                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "15px" }}>
                     Em rota
                   </h3>
-                  <p style={{ fontSize: "28px", fontWeight: "bold", margin: 0 }}>
+                  <p style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
                     {totais.emRota}
                   </p>
                 </div>
@@ -678,15 +700,15 @@ export default function App() {
                 <div
                   style={{
                     background: "#151515",
-                    padding: "18px",
-                    borderRadius: "16px",
+                    padding: "16px",
+                    borderRadius: "14px",
                     border: "1px solid #2c2c2c",
                   }}
                 >
-                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "16px" }}>
+                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "15px" }}>
                     Entregues
                   </h3>
-                  <p style={{ fontSize: "28px", fontWeight: "bold", margin: 0 }}>
+                  <p style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
                     {totais.entregues}
                   </p>
                 </div>
@@ -694,15 +716,15 @@ export default function App() {
                 <div
                   style={{
                     background: "#151515",
-                    padding: "18px",
-                    borderRadius: "16px",
+                    padding: "16px",
+                    borderRadius: "14px",
                     border: "1px solid #2c2c2c",
                   }}
                 >
-                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "16px" }}>
+                  <h3 style={{ color: "#facc15", marginTop: 0, fontSize: "15px" }}>
                     Valor total
                   </h3>
-                  <p style={{ fontSize: "28px", fontWeight: "bold", margin: 0 }}>
+                  <p style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
                     R$ {totais.valorTotal.toFixed(2).replace(".", ",")}
                   </p>
                 </div>
@@ -710,74 +732,6 @@ export default function App() {
             </div>
           )}
         </div>
-      </div>
-
-      <div
-        style={{
-          position: "fixed",
-          bottom: "0",
-          left: "0",
-          width: "100%",
-          background: "#101010",
-          borderTop: "1px solid #2c2c2c",
-          padding: "10px 8px",
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "8px",
-          boxSizing: "border-box",
-        }}
-      >
-        <button
-          onClick={() => setAbaAtual("inicio")}
-          style={{
-            ...corAba("inicio"),
-            padding: "12px 8px",
-            borderRadius: "10px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          Início
-        </button>
-
-        <button
-          onClick={() => setAbaAtual("novo")}
-          style={{
-            ...corAba("novo"),
-            padding: "12px 8px",
-            borderRadius: "10px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          Novo
-        </button>
-
-        <button
-          onClick={() => setAbaAtual("pedidos")}
-          style={{
-            ...corAba("pedidos"),
-            padding: "12px 8px",
-            borderRadius: "10px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          Pedidos
-        </button>
-
-        <button
-          onClick={() => setAbaAtual("painel")}
-          style={{
-            ...corAba("painel"),
-            padding: "12px 8px",
-            borderRadius: "10px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          Painel
-        </button>
       </div>
     </div>
   )
