@@ -121,20 +121,23 @@ export default function App() {
           <h1
             style={{
               color: "#facc15",
-              fontSize: "52px",
+              fontSize: "48px",
               fontWeight: "bold",
-              margin: "0 0 10px 0",
+              margin: "0 0 15px 0",
+              letterSpacing: "2px",
+              lineHeight: "1.1",
             }}
           >
-            Novaes Delivery
+            Entrega Novaes
           </h1>
 
           <h2
             style={{
-              fontSize: "34px",
+              fontSize: "28px",
+              fontWeight: "600",
               color: "#ffffff",
-              margin: "0 0 10px 0",
-              fontWeight: "bold",
+              margin: "0 0 12px 0",
+              lineHeight: "1.3",
             }}
           >
             Entrega rápida e segura
@@ -142,9 +145,9 @@ export default function App() {
 
           <p
             style={{
-              fontSize: "20px",
-              color: "#d4d4d4",
-              marginBottom: "30px",
+              color: "#cfcfcf",
+              fontSize: "18px",
+              marginBottom: "25px",
             }}
           >
             Atendendo Vitória da Conquista e região com agilidade.
