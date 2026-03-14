@@ -86,12 +86,19 @@ export default function App() {
 
   const instalarApp = async () => {
     if (!installPrompt) {
-      alert("A opção de instalar ainda não está disponível neste navegador. Depois vamos ativar isso totalmente no app.")
+      alert(
+        "A instalação ainda não apareceu. Abra o app no Chrome e use por alguns segundos. Quando o PWA estiver ativo, o navegador vai liberar a opção de instalar."
+      )
       return
     }
 
     await installPrompt.prompt()
-    await installPrompt.userChoice
+    const escolha = await installPrompt.userChoice
+
+    if (escolha.outcome === "accepted") {
+      alert("App instalado com sucesso!")
+    }
+
     setInstallPrompt(null)
   }
 
@@ -100,6 +107,11 @@ export default function App() {
   }
 
   const enviarPedidoWhatsapp = () => {
+    if (!comercio || !nomeCliente || !coleta || !entrega || !valorEntrega) {
+      alert("Preencha os campos principais do pedido.")
+      return
+    }
+
     const mensagem =
       `Novo pedido - Novaes Delivery\n\n` +
       `Comércio: ${comercio}\n` +
@@ -151,9 +163,7 @@ export default function App() {
   }
 
   const abrirRota = (endereco: string) => {
-    const link = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      endereco
-    )}`
+    const link = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(endereco)}`
     window.open(link, "_blank")
   }
 
@@ -367,20 +377,22 @@ export default function App() {
                 </button>
 
                 <button
-                  onClick={instalarApp}
-                  style={{
-                    background: "#151515",
-                    color: "#fff",
-                    border: "1px solid #2c2c2c",
-                    padding: "14px 16px",
-                    borderRadius: "12px",
-                    fontWeight: "bold",
-                    fontSize: "15px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Instalar app
-                </button>
+  onClick={instalarApp}
+  disabled={!installPrompt}
+  style={{
+    background: !installPrompt ? "#2a2a2a" : "#151515",
+    color: "#fff",
+    border: "1px solid #2c2c2c",
+    padding: "14px 16px",
+    borderRadius: "12px",
+    fontWeight: "bold",
+    fontSize: "15px",
+    cursor: !installPrompt ? "not-allowed" : "pointer",
+    opacity: !installPrompt ? 0.7 : 1,
+  }}
+>
+  {installPrompt ? "Instalar app" : "Instalação indisponível"}
+</button>
               </div>
             </div>
           )}
