@@ -143,6 +143,10 @@ export default function App() {
     fontSize: "14px",
     cursor: "pointer",
     minWidth: "72px",
+    whiteSpace: "nowrap" as const,
+    overflow: "hidden" as const,
+    textOverflow: "ellipsis" as const,
+    flexShrink: 0 as const,
   })
 
   return (
