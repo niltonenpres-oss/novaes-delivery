@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 type Aba = "inicio" | "novo" | "pedidos" | "painel"
 
@@ -13,6 +13,13 @@ type Pedido = {
   status: string
 }
 
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>
+}
+
+const PEDIDOS_KEY = "novaes_delivery_pedidos"
+
 export default function App() {
   const [abaAtual, setAbaAtual] = useState<Aba>("inicio")
 
@@ -23,28 +30,70 @@ export default function App() {
   const [valorEntrega, setValorEntrega] = useState("10,00")
   const [observacoes, setObservacoes] = useState("")
 
-  const [pedidos, setPedidos] = useState<Pedido[]>([
-    {
-      id: 1,
-      comercio: "Farmácia Central",
-      nomeCliente: "Maria",
-      coleta: "Centro",
-      entrega: "Candeias",
-      valorEntrega: "10,00",
-      observacoes: "Entregar rápido",
-      status: "Recebido",
-    },
-    {
-      id: 2,
-      comercio: "Mercado Bahia",
-      nomeCliente: "João",
-      coleta: "Mercado Central",
-      entrega: "Brasil",
-      valorEntrega: "12,00",
-      observacoes: "",
-      status: "Em rota",
-    },
-  ])
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
+
+  const [pedidos, setPedidos] = useState<Pedido[]>(() => {
+    const salvo = localStorage.getItem(PEDIDOS_KEY)
+
+    if (salvo) {
+      try {
+        return JSON.parse(salvo)
+      } catch {
+        return []
+      }
+    }
+
+    return [
+      {
+        id: 1,
+        comercio: "Farmácia Central",
+        nomeCliente: "Maria",
+        coleta: "Centro",
+        entrega: "Candeias",
+        valorEntrega: "10,00",
+        observacoes: "Entregar rápido",
+        status: "Recebido",
+      },
+      {
+        id: 2,
+        comercio: "Mercado Bahia",
+        nomeCliente: "João",
+        coleta: "Mercado Central",
+        entrega: "Brasil",
+        valorEntrega: "12,00",
+        observacoes: "",
+        status: "Em rota",
+      },
+    ]
+  })
+
+  useEffect(() => {
+    localStorage.setItem(PEDIDOS_KEY, JSON.stringify(pedidos))
+  }, [pedidos])
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      event.preventDefault()
+      setInstallPrompt(event as BeforeInstallPromptEvent)
+    }
+
+    window.addEventListener("beforeinstallprompt", handler)
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler)
+    }
+  }, [])
+
+  const instalarApp = async () => {
+    if (!installPrompt) {
+      alert("A opção de instalar ainda não está disponível neste navegador. Depois vamos ativar isso totalmente no app.")
+      return
+    }
+
+    await installPrompt.prompt()
+    await installPrompt.userChoice
+    setInstallPrompt(null)
+  }
 
   const abrirWhatsapp = () => {
     window.open("https://wa.me/5577998635270", "_blank")
@@ -318,6 +367,7 @@ export default function App() {
                 </button>
 
                 <button
+                  onClick={instalarApp}
                   style={{
                     background: "#151515",
                     color: "#fff",
